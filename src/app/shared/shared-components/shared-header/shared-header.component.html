@@ -1,0 +1,55 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <div class="nav-bar-header">
+      <a class="navbar-brand" href="#">Navbar</a>
+    </div>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarColor03"
+      aria-controls="navbarColor03"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+      (click)="isCollapsed = !isCollapsed"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div
+      class="collapse navbar-collapse"
+      id="navbarColor03"
+      [ngbCollapse]="isCollapsed"
+    >
+      <ul class="nav navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Recipes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Shopping List</a>
+        </li>
+      </ul>
+
+      <ul class="nav navbar-nav ms-auto">
+        <li class="nav-item dropdown">
+          <div ngbDropdown class="d-inline-block">
+            <button
+              type="button"
+              class="nav-link dropdown-toggle"
+              id="dropdownBasic1"
+              ngbDropdownToggle
+            >
+              Manage
+            </button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button ngbDropdownItem>Save Data</button>
+              <button ngbDropdownItem>Fetch Data</button>
+              <button ngbDropdownItem></button>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

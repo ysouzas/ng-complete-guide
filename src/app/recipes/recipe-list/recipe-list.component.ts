@@ -1,0 +1,21 @@
+import { Component, OnInit } from '@angular/core';
+import { Recipe } from '../Models/recipe.model';
+
+@Component({
+  selector: 'app-recipe-list',
+  templateUrl: './recipe-list.component.html',
+  styleUrl: './recipe-list.component.css',
+})
+export class RecipeListComponent implements OnInit {
+  recipes: Recipe[] = [
+    new Recipe(
+      'Teste',
+      'Teste',
+      'https://www.allrecipes.com/thmb/bxtenUUpvdz5cbM-4OOaYsLVleM=/1900x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/55803_PumpkinPancakes3x1photobychibichef-93bd97aff5f0429783b4ea3a74857be4.jpg'
+    ),
+  ];
+
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
+  }
+}

@@ -3,25 +3,19 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
-import { RecipesComponent } from './recipes/recipes.component';
-import { RecipeListComponent } from './recipes/recipe-list/recipe-list.component';
-import { RecipeDetailComponent } from './recipes/recipe-detail/recipe-detail.component';
-import { RecipeItemComponent } from './recipes/recipe-list/recipe-item/recipe-item.component';
-import { ShoppingListComponent } from './shopping-list/shopping-list.component';
-import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
 import { SharedModule } from './shared/shared/shared.module';
+import { RecipesModule } from './recipes/recipes.module';
+import { ShoppingModule } from './shopping-list/shopping.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    RecipesComponent,
-    RecipeListComponent,
-    RecipeDetailComponent,
-    RecipeItemComponent,
-    ShoppingListComponent,
-    ShoppingEditComponent,
+  declarations: [AppComponent],
+  imports: [
+    BrowserModule,
+    NgbNavModule,
+    SharedModule,
+    RecipesModule,
+    ShoppingModule,
   ],
-  imports: [BrowserModule, NgbNavModule, SharedModule],
   providers: [],
   bootstrap: [AppComponent],
 })

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Ingredient } from '../shared/models/ingredient.model';
 
 @Component({
   selector: 'app-shopping-list',
@@ -6,9 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrl: './shopping-list.component.css',
 })
 export class ShoppingListComponent implements OnInit {
-  recipes = [];
+  ingredients: Ingredient[] = [
+    new Ingredient('asddasasd', 5),
+    new Ingredient('asddasa22sd', 9),
+    new Ingredient('asdda22sasd', 6),
+  ];
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    console.log(this.ingredients);
   }
 }

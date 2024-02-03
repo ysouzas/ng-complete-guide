@@ -1,16 +1,12 @@
 <div class="row">
   <div class="col-md-5">
-    <app-recipe-list (selected)="selectedRecipe = $event" />
+    <app-recipe-list />
   </div>
   <div class="col-md-7">
     @if (selectedRecipe != null) {
     <app-recipe-detail [recipe]="selectedRecipe" />
     } @else {
     <p>Please Select a Recipe!</p>
-    } @switch (issue) { @case (StateEnum.BC) {
-    <p>PIPaaI</p>
-    } @case (StateEnum.NB) {
-    <p>POPO</p>
-    } }
+    }
   </div>
 </div>

@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
-import { SharedModule } from './shared/shared/shared.module';
+import { SharedModule } from './shared/shared.module';
 import { RecipesModule } from './recipes/recipes.module';
 import { ShoppingModule } from './shopping-list/shopping.module';
 

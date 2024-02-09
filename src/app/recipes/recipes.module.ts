@@ -4,6 +4,9 @@ import { RecipeDetailComponent } from './recipe-detail/recipe-detail.component';
 import { RecipeItemComponent } from './recipe-list/recipe-item/recipe-item.component';
 import { RecipeListComponent } from './recipe-list/recipe-list.component';
 import { RecipesComponent } from './recipes.component';
+import { RecipesRoutes } from './recipes.routing';
+import { RecipeStartComponent } from './recipe-start/recipe-start.component';
+import { RecipeEditComponent } from './recipe-edit/recipe-edit.component';
 
 @NgModule({
   declarations: [
@@ -11,8 +14,10 @@ import { RecipesComponent } from './recipes.component';
     RecipeListComponent,
     RecipeDetailComponent,
     RecipeItemComponent,
+    RecipeStartComponent,
+    RecipeEditComponent,
   ],
-  imports: [CommonModule],
+  imports: [CommonModule, RecipesRoutes],
   exports: [
     RecipesComponent,
     RecipeListComponent,

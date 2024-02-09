@@ -10,12 +10,17 @@
     </p>
   </div>
   <ul class="list-group list-group-flush">
-    <li class="list-group-item">Cras justo odio</li>
-    <li class="list-group-item">Dapibus ac facilisis in</li>
-    <li class="list-group-item">Vestibulum at eros</li>
+    @for (ingredient of recipe.ingredients; track $index) {
+    <li class="list-group-item">
+      {{ ingredient.name }} - {{ ingredient.amount }}
+    </li>
+
+    }
   </ul>
   <div class="card-body">
-    <a href="#" class="btn btn-primary me-2">To Shopping List</a>
-    <a href="#" class="btn btn-primary">Edit Recipe</a>
+    <a class="btn btn-primary me-2" (click)="onAddToShoppingList()"
+      >To Shopping List</a
+    >
+    <a class="btn btn-primary" [routerLink]="'edit'">Edit Recipe</a>
   </div>
 </div>

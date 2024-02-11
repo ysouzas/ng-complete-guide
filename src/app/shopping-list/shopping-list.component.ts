@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Ingredient } from './../shared/models/ingredient.model';
-import { ShoppingListService } from './services/shopping-list.service';
+import { Component, OnInit } from '@angular/core';
 import { UntilDestroy } from '@ngneat/until-destroy';
+
+import { Ingredient } from '../shared/models/ingredient.model';
+import { ShoppingListService } from './services/shopping-list.service';
 
 @UntilDestroy({ checkProperties: true })
 @Component({
@@ -17,6 +18,8 @@ export class ShoppingListComponent implements OnInit {
   constructor(private slService: ShoppingListService) {}
 
   ngOnInit(): void {}
+
+  onEditItem(index: number) {}
 
   private createIngredientsObservable(): Observable<Ingredient[]> {
     return this.slService.ingredientsChanged;

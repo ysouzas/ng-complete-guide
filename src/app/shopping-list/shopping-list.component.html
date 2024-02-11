@@ -5,9 +5,9 @@
 
     <ul class="list-group">
       @for (ingredient of ingredients$ | async ; track $index) {
-      <li class="list-group-item">
+      <a class="list-group-item" [routerLink]="[$index, 'edit']">
         {{ ingredient.name }} - {{ ingredient.amount }}
-      </li>
+      </a>
       }
     </ul>
   </div>

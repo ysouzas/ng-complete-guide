@@ -10,6 +10,9 @@ import { ShoppingListService } from '../services/shopping-list.service';
   styleUrl: './shopping-edit.component.css',
 })
 export class ShoppingEditComponent {
+  editMode = false;
+  editedItemIndex: number;
+
   constructor(private slService: ShoppingListService) {}
 
   onAddItem(form: NgForm) {

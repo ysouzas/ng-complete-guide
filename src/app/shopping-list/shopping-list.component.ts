@@ -19,7 +19,9 @@ export class ShoppingListComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onEditItem(index: number) {}
+  onEditItem(index: number) {
+    this.slService.startedEditing.next(index);
+  }
 
   private createIngredientsObservable(): Observable<Ingredient[]> {
     return this.slService.ingredientsChanged;

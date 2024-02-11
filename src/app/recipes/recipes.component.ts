@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { Recipe } from './Models/recipe.model';
+import { UntilDestroy } from '@ngneat/until-destroy';
+
 import { RecipeService } from './services/recipe.service';
 
+@UntilDestroy({ checkProperties: true })
 @Component({
   selector: 'app-recipes',
   templateUrl: './recipes.component.html',
@@ -9,11 +11,7 @@ import { RecipeService } from './services/recipe.service';
   providers: [RecipeService],
 })
 export class RecipesComponent {
-  selectedRecipe: Recipe;
+  constructor() {}
 
-  constructor(private recipeService: RecipeService) {
-    this.recipeService.recipeSelected.subscribe((recipe: Recipe) => {
-      this.selectedRecipe = recipe;
-    });
-  }
+  ngOnInit(): void {}
 }

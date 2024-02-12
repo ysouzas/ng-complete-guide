@@ -7,7 +7,7 @@ const routes: Routes = [
   {
     path: 'shopping-list',
     component: ShoppingListComponent,
-    children: [{ path: ':id/edit', component: ShoppingEditComponent }],
+    children: [{ path: 'edit', component: ShoppingEditComponent }],
   },
 ];
 

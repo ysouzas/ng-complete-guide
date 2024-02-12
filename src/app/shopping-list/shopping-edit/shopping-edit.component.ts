@@ -22,17 +22,21 @@ export class ShoppingEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.editingItem$.subscribe((index: number) => {
-      this.editedItemIndex = index;
-      this.editMode = true;
-      this.editedItem = this.slService.getIngredient(this.editedItemIndex);
-      this.slForm.setValue({
-        name: this.editedItem.name,
-        amount: this.editedItem.amount,
-      });
+      debugger;
+      var asd = !isNaN(index);
+      if (!isNaN(index) && index !== null) {
+        this.editedItemIndex = index;
+        this.editMode = true;
+        this.editedItem = this.slService.getIngredient(this.editedItemIndex);
+        this.slForm.setValue({
+          name: this.editedItem.name,
+          amount: this.editedItem.amount,
+        });
+      }
     });
   }
 
-  onAddItem(form: NgForm) {
+  onSubmitItem(form: NgForm) {
     const value = form.value;
 
     const newIngredient = new Ingredient(value.name, value.amount);
@@ -40,6 +44,20 @@ export class ShoppingEditComponent implements OnInit {
     this.editMode
       ? this.slService.updateIngredients(this.editedItemIndex, newIngredient)
       : this.slService.addIngredient(newIngredient);
+
+    this.editMode = false;
+    form.reset();
+  }
+
+  onClear() {
+    this.slForm.reset();
+    this.editMode = false;
+    this.editingItem$.next(null);
+  }
+
+  onDelete() {
+    this.onClear();
+    this.slService.deleteIngredient(this.editedItemIndex);
   }
 
   private createEditingItemObservable() {

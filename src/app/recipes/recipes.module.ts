@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { RecipeDetailComponent } from './recipe-detail/recipe-detail.component';
 import { RecipeEditComponent } from './recipe-edit/recipe-edit.component';
@@ -19,7 +19,7 @@ import { RecipesRoutes } from './recipes.routing';
     RecipeStartComponent,
     RecipeEditComponent,
   ],
-  imports: [CommonModule, FormsModule, RecipesRoutes],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RecipesRoutes],
   exports: [
     RecipesComponent,
     RecipeListComponent,

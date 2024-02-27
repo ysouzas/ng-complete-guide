@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 import { UntilDestroy } from '@ngneat/until-destroy';
 
@@ -24,10 +24,23 @@ export class RecipeEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.routeParams$.subscribe((params: Params) => {
+      debugger;
       this.id = +params['id'];
       this.editMode = params['id'] !== null;
       this.initForm();
     });
+  }
+
+  onAddIngredient() {
+    (<FormArray>this.recipeForm.get('ingredients')).push(
+      new FormGroup({
+        name: new FormControl(null, Validators.required),
+        amount: new FormControl(null, [
+          Validators.required,
+          Validators.pattern(/^[1-9]+[0-9]*$/),
+        ]),
+      })
+    );
   }
 
   private createRouteParamsObservable() {
@@ -51,24 +64,26 @@ export class RecipeEditComponent implements OnInit {
         for (const ingredient of recipe.ingredients) {
           recipeIngredients.push(
             new FormGroup({
-              name: new FormControl(ingredient.name),
-              amount: new FormControl(ingredient.amount),
+              name: new FormControl(ingredient.name, Validators.required),
+              amount: new FormControl(ingredient.amount, [
+                Validators.required,
+                Validators.pattern(/^[1-9]+[0-9]*$/),
+              ]),
             })
           );
         }
       }
     }
-    debugger;
+
     this.recipeForm = new FormGroup({
-      name: new FormControl(recipeName),
-      imagePath: new FormControl(recipeImgPath),
-      description: new FormControl(recipeDescription),
+      name: new FormControl(recipeName, Validators.required),
+      imagePath: new FormControl(recipeImgPath, Validators.required),
+      description: new FormControl(recipeDescription, Validators.required),
       ingredients: recipeIngredients,
     });
   }
 
   get controls() {
-    debugger;
     return (<FormArray>this.recipeForm.get('ingredients')).controls;
   }
 }

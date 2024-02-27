@@ -3,7 +3,13 @@
     <form [formGroup]="recipeForm">
       <div class="row">
         <div class="col-xs-12">
-          <button type="submit" class="btn btn-success me-2">Save</button>
+          <button
+            type="submit"
+            class="btn btn-success me-2"
+            [disabled]="!recipeForm.valid"
+          >
+            Save
+          </button>
           <button type="button" class="btn btn-success">Cancel</button>
         </div>
       </div>
@@ -74,6 +80,18 @@
             </div>
           </div>
           }
+          <hr />
+          <div class="row">
+            <div class="col-xs-1">
+              <button
+                type="button"
+                class="btn btn-success me-2"
+                (click)="onAddIngredient()"
+              >
+                Add Ingredient
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </form>

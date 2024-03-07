@@ -26,21 +26,32 @@ export class RecipeEditComponent implements OnInit {
     this.routeParams$.subscribe((params: Params) => {
       debugger;
       this.id = +params['id'];
-      this.editMode = params['id'] !== null;
+      this.editMode = !isNaN(params['id']) && params['id'] !== null;
       this.initForm();
     });
   }
 
+  onSubmit() {
+    debugger;
+    if (this.editMode) {
+      this.recipeService.updateRecipe(this.id, this.recipeForm.value);
+    } else {
+      this.recipeService.addRecipe(this.recipeForm.value);
+    }
+  }
+
   onAddIngredient() {
-    (<FormArray>this.recipeForm.get('ingredients')).push(
-      new FormGroup({
-        name: new FormControl(null, Validators.required),
-        amount: new FormControl(null, [
-          Validators.required,
-          Validators.pattern(/^[1-9]+[0-9]*$/),
-        ]),
-      })
-    );
+    const formArray = <FormArray>this.recipeForm.get('ingredients');
+
+    const formGroup = new FormGroup({
+      name: new FormControl(null, Validators.required),
+      amount: new FormControl(null, [
+        Validators.required,
+        Validators.pattern(/^[1-9]+[0-9]*$/),
+      ]),
+    });
+
+    formArray.push(formGroup);
   }
 
   private createRouteParamsObservable() {

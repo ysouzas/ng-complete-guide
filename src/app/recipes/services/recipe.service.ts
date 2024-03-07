@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
-import { ShoppingListService } from './../../shopping-list/services/shopping-list.service';
-import { Ingredient } from './../../shared/models/ingredient.model';
 import { Recipe } from '../Models/recipe.model';
+import { Ingredient } from './../../shared/models/ingredient.model';
+import { ShoppingListService } from './../../shopping-list/services/shopping-list.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RecipeService {
+  recipesChanged = new BehaviorSubject<Recipe[]>([]);
+
   private recipes: Recipe[] = [
     new Recipe(
       'Test1e',
@@ -41,7 +44,9 @@ export class RecipeService {
     ),
   ];
 
-  constructor(private slService: ShoppingListService) {}
+  constructor(private slService: ShoppingListService) {
+    this.recipesChanged.next(this.recipes.slice());
+  }
 
   getRecipes() {
     return this.recipes.slice();
@@ -51,7 +56,17 @@ export class RecipeService {
     return this.recipes.slice()[id];
   }
 
-  AddIngredientsToShoppingList(ingredients: Ingredient[]) {
+  addIngredientsToShoppingList(ingredients: Ingredient[]) {
     this.slService.addIngredients(ingredients);
+  }
+
+  addRecipe(recipe: Recipe) {
+    this.recipes.push(recipe);
+    this.recipesChanged.next(this.recipes.slice());
+  }
+
+  updateRecipe(index: number, recipe: Recipe) {
+    this.recipes[index] = recipe;
+    this.recipesChanged.next(this.recipes.slice());
   }
 }

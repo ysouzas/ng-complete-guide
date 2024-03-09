@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { UntilDestroy } from '@ngneat/until-destroy';
 
 import { Recipe } from '../Models/recipe.model';
@@ -18,7 +18,8 @@ export class RecipeDetailComponent implements OnInit {
 
   constructor(
     private recipeService: RecipeService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -33,6 +34,7 @@ export class RecipeDetailComponent implements OnInit {
   }
   onDelete() {
     this.recipeService.deleteRecipe(this.id);
+    this.router.navigate(['/recipes']);
   }
 
   private createRouteParamsObservable() {

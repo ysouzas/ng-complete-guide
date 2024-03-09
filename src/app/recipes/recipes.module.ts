@@ -9,6 +9,7 @@ import { RecipeListComponent } from './recipe-list/recipe-list.component';
 import { RecipeStartComponent } from './recipe-start/recipe-start.component';
 import { RecipesComponent } from './recipes.component';
 import { RecipesRoutes } from './recipes.routing';
+import { RecipeService } from './services/recipe.service';
 
 @NgModule({
   declarations: [
@@ -26,5 +27,6 @@ import { RecipesRoutes } from './recipes.routing';
     RecipeDetailComponent,
     RecipeItemComponent,
   ],
+  providers: [RecipeService],
 })
 export class RecipesModule {}

@@ -57,6 +57,10 @@ export class RecipeEditComponent implements OnInit {
     formArray.push(formGroup);
   }
 
+  onDeleteIngredient(index: number) {
+    (<FormArray>this.recipeForm.get('ingredients')).removeAt(index);
+  }
+
   private createRouteParamsObservable() {
     return this.route.params;
   }

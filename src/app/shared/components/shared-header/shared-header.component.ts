@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DataStorageService } from '../../services/data-storage.service';
 
 @Component({
   selector: 'app-shared-header',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class SharedHeaderComponent {
   isCollapsed = true;
+
+  constructor(private dataStorage: DataStorageService) {}
+  onSaveData() {
+    this.dataStorage.storeRecipes();
+  }
 }

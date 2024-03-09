@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
@@ -13,10 +14,12 @@ import { ShoppingModule } from './shopping-list/shopping.module';
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    NgbNavModule,
+    HttpClientModule,
     SharedModule,
     RecipesModule,
     ShoppingModule,
+    NgbNavModule,
+
     AppRoutes,
   ],
   providers: [ShoppingListService],

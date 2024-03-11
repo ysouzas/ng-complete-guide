@@ -10,7 +10,13 @@ export class SharedHeaderComponent {
   isCollapsed = true;
 
   constructor(private dataStorage: DataStorageService) {}
+
   onSaveData() {
     this.dataStorage.storeRecipes();
+  }
+
+  onFetchData() {
+    debugger;
+    this.dataStorage.fetchRecipes();
   }
 }

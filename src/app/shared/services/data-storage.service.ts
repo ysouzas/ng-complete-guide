@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { tap } from 'rxjs';
 import { environment } from '../../../environments/environment.development';
 import { Recipe } from '../../recipes/Models/recipe.model';
 import { RecipeService } from '../../recipes/services/recipe.service';
@@ -18,11 +19,10 @@ export class DataStorageService {
 
   fetchRecipes() {
     debugger;
-    this.http
-      .get<Recipe[]>(`${environment.apiUrl}/recipes.json`)
-      .subscribe((res) => {
-        debugger;
+    return this.http.get<Recipe[]>(`${environment.apiUrl}/recipes.json`).pipe(
+      tap((res) => {
         return this.recipeService.setRecipes(res);
-      });
+      })
+    );
   }
 }

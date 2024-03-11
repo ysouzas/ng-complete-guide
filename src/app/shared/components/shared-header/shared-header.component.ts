@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Recipe } from '../../../recipes/Models/recipe.model';
 import { DataStorageService } from '../../services/data-storage.service';
 
 @Component({
@@ -8,15 +10,21 @@ import { DataStorageService } from '../../services/data-storage.service';
 })
 export class SharedHeaderComponent {
   isCollapsed = true;
+  recipes$: Observable<Recipe[]> = this.createRecipesObservable();
 
-  constructor(private dataStorage: DataStorageService) {}
+  constructor(private dataStorage: DataStorageService) {
+    this.recipes$.subscribe();
+  }
 
   onSaveData() {
     this.dataStorage.storeRecipes();
   }
 
   onFetchData() {
-    debugger;
     this.dataStorage.fetchRecipes();
+  }
+
+  createRecipesObservable() {
+    return this.dataStorage.fetchRecipes();
   }
 }

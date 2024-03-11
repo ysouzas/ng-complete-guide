@@ -1,8 +1,9 @@
-import { Routes, RouterModule } from '@angular/router';
-import { RecipesComponent } from './recipes.component';
-import { RecipeStartComponent } from './recipe-start/recipe-start.component';
+import { RouterModule, Routes } from '@angular/router';
 import { RecipeDetailComponent } from './recipe-detail/recipe-detail.component';
 import { RecipeEditComponent } from './recipe-edit/recipe-edit.component';
+import { RecipeStartComponent } from './recipe-start/recipe-start.component';
+import { RecipesComponent } from './recipes.component';
+import { RecipeResolver } from './resolvers/recipes-resolver';
 
 const routes: Routes = [
   {
@@ -14,9 +15,13 @@ const routes: Routes = [
       {
         path: ':id',
         component: RecipeDetailComponent,
-        children: [],
+        resolve: [RecipeResolver],
       },
-      { path: ':id/edit', component: RecipeEditComponent },
+      {
+        path: ':id/edit',
+        component: RecipeEditComponent,
+        resolve: [RecipeResolver],
+      },
     ],
   },
 ];

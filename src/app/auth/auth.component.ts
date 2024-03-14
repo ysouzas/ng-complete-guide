@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntilDestroy } from '@ngneat/until-destroy';
+import { AuthService } from './services/auth.service';
 
+@UntilDestroy({ checkProperties: true })
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
@@ -10,7 +13,7 @@ export class AuthComponent implements OnInit {
   isLoginMode = true;
   authForm: FormGroup;
 
-  constructor() {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit() {
     this.initForm();
@@ -20,7 +23,13 @@ export class AuthComponent implements OnInit {
     this.isLoginMode = !this.isLoginMode;
   }
 
-  onSubmit() {}
+  onSubmit() {
+    const { email, password } = this.authForm.value;
+
+    this.authService
+      .signUp(email, password)
+      .subscribe((res) => console.log(res));
+  }
 
   private initForm() {
     let email = '';

@@ -8,7 +8,6 @@ import { AppRoutes } from './app.routing';
 import { AuthModule } from './auth/auth.module';
 import { RecipesModule } from './recipes/recipes.module';
 import { SharedModule } from './shared/shared.module';
-import { ShoppingListService } from './shopping-list/services/shopping-list.service';
 import { ShoppingModule } from './shopping-list/shopping.module';
 
 @NgModule({
@@ -23,7 +22,7 @@ import { ShoppingModule } from './shopping-list/shopping.module';
     AuthModule,
     AppRoutes,
   ],
-  providers: [ShoppingListService],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

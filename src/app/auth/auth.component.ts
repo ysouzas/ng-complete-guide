@@ -12,6 +12,8 @@ import { AuthService } from './services/auth.service';
 export class AuthComponent implements OnInit {
   isLoginMode = true;
   authForm: FormGroup;
+  isLoading = false;
+  error: string = null;
 
   constructor(private authService: AuthService) {}
 
@@ -25,10 +27,17 @@ export class AuthComponent implements OnInit {
 
   onSubmit() {
     const { email, password } = this.authForm.value;
-
-    this.authService
-      .signUp(email, password)
-      .subscribe((res) => console.log(res));
+    this.isLoading = true;
+    this.authService.signUp(email, password).subscribe(
+      (res) => {
+        console.log(res);
+        this.isLoading = false;
+      },
+      (error) => {
+        this.error = 'An Error occurred';
+        this.isLoading = false;
+      }
+    );
   }
 
   private initForm() {

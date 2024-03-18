@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://my-api-url',
-  authUrl: 'http://my-auth-url',
+  signUpUrl: 'http://my-auth-url',
+  signInUrl: 'http://my-auth-url',
   apiKey: 'my-api-key',
 };

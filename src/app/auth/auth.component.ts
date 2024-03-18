@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UntilDestroy } from '@ngneat/until-destroy';
+import { Observable } from 'rxjs';
+import { AuthResponseData } from './models/auth';
 import { AuthService } from './services/auth.service';
 
 @UntilDestroy({ checkProperties: true })
@@ -14,6 +16,7 @@ export class AuthComponent implements OnInit {
   authForm: FormGroup;
   isLoading = false;
   error: string = null;
+  auth$: Observable<AuthResponseData> = null;
 
   constructor(private authService: AuthService) {}
 
@@ -28,16 +31,25 @@ export class AuthComponent implements OnInit {
   onSubmit() {
     const { email, password } = this.authForm.value;
     this.isLoading = true;
-    this.authService.signUp(email, password).subscribe(
-      (res) => {
+
+    this.auth$ = this.createAuthObservable(email, password);
+
+    this.auth$.subscribe({
+      next: (res) => {
         console.log(res);
         this.isLoading = false;
       },
-      (error: string) => {
+      error: (error: string) => {
         this.error = error;
         this.isLoading = false;
-      }
-    );
+      },
+    });
+  }
+
+  private createAuthObservable(email: string, password: string) {
+    return this.isLoginMode
+      ? this.authService.signIn(email, password)
+      : this.authService.signUp(email, password);
   }
 
   private initForm() {

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { Observable } from 'rxjs';
-import { AuthResponseData } from './models/auth';
+import { AuthResponseData } from './models';
 import { AuthService } from './services/auth.service';
 
 @UntilDestroy({ checkProperties: true })

@@ -1,14 +1,18 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, throwError } from 'rxjs';
+import { Subject, catchError, tap, throwError } from 'rxjs';
 
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { environment } from '../../../environments/environment';
-import { AuthResponseData } from '../models/auth';
+import { AuthResponseData, SignResponse, User, errorMessages } from '../models';
 
+@UntilDestroy({ checkProperties: true })
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  user = new Subject<User>();
+
   constructor(private http: HttpClient) {}
 
   signUp(email: string, password: string) {
@@ -18,19 +22,7 @@ export class AuthService {
         password,
         returnSecureToken: true,
       })
-      .pipe(
-        catchError((error: HttpErrorResponse) => {
-          let errorMessage = 'An Error occurred';
-
-          switch (error.error.error.message) {
-            case 'EMAIL_EXISTS':
-              errorMessage =
-                'The email address is already in use by another account.';
-          }
-
-          return throwError(() => errorMessage);
-        })
-      );
+      .pipe(catchError(this.handleError), tap(this.handleAuthentication));
   }
 
   signIn(email: string, password: string) {
@@ -40,18 +32,25 @@ export class AuthService {
         password,
         returnSecureToken: true,
       })
-      .pipe(
-        catchError((error: HttpErrorResponse) => {
-          let errorMessage = 'An Error occurred';
+      .pipe(catchError(this.handleError), tap(this.handleAuthentication));
+  }
 
-          switch (error.error.error.message) {
-            case 'EMAIL_EXISTS':
-              errorMessage =
-                'The email address is already in use by another account.';
-          }
+  private handleError(errorResponse: HttpErrorResponse) {
+    const errorMessage =
+      errorMessages[errorResponse.error.error.message] ||
+      'Unknown error occurred.';
 
-          return throwError(() => errorMessage);
-        })
-      );
+    return throwError(() => errorMessage);
+  }
+
+  private handleAuthentication(res: SignResponse) {
+    debugger;
+    const expirationDate = new Date(
+      new Date().getTime() + parseInt(res.expiresIn) * 1000
+    );
+
+    const user = new User(res.email, res.localId, res.idToken, expirationDate);
+
+    this.user.next(user);
   }
 }

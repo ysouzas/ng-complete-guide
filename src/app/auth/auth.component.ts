@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { Observable } from 'rxjs';
+
 import { AuthResponseData } from './models';
 import { AuthService } from './services/auth.service';
 
@@ -18,7 +20,7 @@ export class AuthComponent implements OnInit {
   error: string = null;
   auth$: Observable<AuthResponseData> = null;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
     this.initForm();
@@ -36,8 +38,10 @@ export class AuthComponent implements OnInit {
 
     this.auth$.subscribe({
       next: (res) => {
+        debugger;
         console.log(res);
         this.isLoading = false;
+        this.router.navigate(['/recipes']);
       },
       error: (error: string) => {
         this.error = error;

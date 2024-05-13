@@ -1,19 +1,41 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { Observable } from 'rxjs';
+import { User } from '../../../auth/models';
 import { Recipe } from '../../../recipes/Models/recipe.model';
 import { DataStorageService } from '../../services/data-storage.service';
+import { AuthService } from './../../../auth/services/auth.service';
 
+@UntilDestroy({ checkProperties: true })
 @Component({
   selector: 'app-shared-header',
   templateUrl: './shared-header.component.html',
   styleUrl: './shared-header.component.css',
 })
-export class SharedHeaderComponent {
+export class SharedHeaderComponent implements OnInit {
   isCollapsed = true;
-  recipes$: Observable<Recipe[]> = this.createRecipesObservable();
+  isAuthenticated = false;
 
-  constructor(private dataStorage: DataStorageService) {
+  recipes$: Observable<Recipe[]> = this.createRecipesObservable();
+  user$: Observable<User> = this.createUserObservable();
+
+  constructor(
+    private dataStorage: DataStorageService,
+    private authService: AuthService
+  ) {
     this.recipes$.subscribe();
+  }
+
+  ngOnInit(): void {
+    this.user$.subscribe({
+      next: (user) => {
+        debugger;
+        console.log(user);
+        console.log(!!user);
+
+        this.isAuthenticated = !!user;
+      },
+    });
   }
 
   onSaveData() {
@@ -22,6 +44,10 @@ export class SharedHeaderComponent {
 
   onFetchData() {
     this.dataStorage.fetchRecipes();
+  }
+
+  createUserObservable() {
+    return this.authService.user;
   }
 
   createRecipesObservable() {

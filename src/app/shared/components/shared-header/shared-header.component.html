@@ -23,11 +23,19 @@
       [ngbCollapse]="isCollapsed"
     >
       <ul class="nav navbar-nav mr-auto">
+        @if (isAuthenticated) {
         <li class="nav-item active">
           <a class="nav-link" routerLink="/recipes" routerLinkActive="active"
             >Recipes</a
           >
         </li>
+        }@else {
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/auth" routerLinkActive="active"
+            >Authenticate</a
+          >
+        </li>
+        }
         <li class="nav-item">
           <a
             class="nav-link"
@@ -36,14 +44,15 @@
             >Shopping List</a
           >
         </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/auth" routerLinkActive="active"
-            >Authenticate</a
-          >
-        </li>
       </ul>
 
+      @if (isAuthenticated) {
       <ul class="nav navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/auth" routerLinkActive="active"
+            >Logout</a
+          >
+        </li>
         <li class="nav-item dropdown">
           <div ngbDropdown class="d-inline-block">
             <button
@@ -66,6 +75,8 @@
           </div>
         </li>
       </ul>
+
+      }
     </div>
   </div>
 </nav>

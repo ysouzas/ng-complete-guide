@@ -13,7 +13,10 @@ import { AuthResponseData, SignResponse, User, errorMessages } from '../models';
 export class AuthService {
   user = new Subject<User>();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.user;
+    this.handleAuthentication = this.handleAuthentication.bind(this);
+  }
 
   signUp(email: string, password: string) {
     return this.http
@@ -44,7 +47,6 @@ export class AuthService {
   }
 
   private handleAuthentication(res: SignResponse) {
-    debugger;
     const expirationDate = new Date(
       new Date().getTime() + parseInt(res.expiresIn) * 1000
     );

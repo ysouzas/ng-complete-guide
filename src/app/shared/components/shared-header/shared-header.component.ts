@@ -29,10 +29,6 @@ export class SharedHeaderComponent implements OnInit {
   ngOnInit(): void {
     this.user$.subscribe({
       next: (user) => {
-        debugger;
-        console.log(user);
-        console.log(!!user);
-
         this.isAuthenticated = !!user;
       },
     });
@@ -43,7 +39,10 @@ export class SharedHeaderComponent implements OnInit {
   }
 
   onFetchData() {
-    this.dataStorage.fetchRecipes();
+    this.dataStorage.fetchRecipes().subscribe();
+  }
+  onLogout(): void {
+    this.authService.logout();
   }
 
   createUserObservable() {

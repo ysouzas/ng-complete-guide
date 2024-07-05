@@ -22,8 +22,6 @@ export class ShoppingEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.editingItem$.subscribe((index: number) => {
-      debugger;
-      var asd = !isNaN(index);
       if (!isNaN(index) && index !== null) {
         this.editedItemIndex = index;
         this.editMode = true;

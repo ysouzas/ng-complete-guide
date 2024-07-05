@@ -25,7 +25,6 @@ export class RecipeEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.routeParams$.subscribe((params: Params) => {
-      debugger;
       this.id = +params['id'];
       this.editMode = !isNaN(params['id']) && params['id'] !== null;
       this.initForm();
@@ -33,7 +32,6 @@ export class RecipeEditComponent implements OnInit {
   }
 
   onSubmit() {
-    debugger;
     if (this.editMode) {
       this.recipeService.updateRecipe(this.id, this.recipeForm.value);
     } else {
@@ -73,7 +71,6 @@ export class RecipeEditComponent implements OnInit {
 
     if (this.editMode) {
       const recipe = this.recipeService.getRecipeById(this.id);
-      debugger;
 
       recipeName = recipe.name;
       recipeImgPath = recipe.imagePath;

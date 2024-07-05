@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject, catchError, tap, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, tap, throwError } from 'rxjs';
 
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { environment } from '../../../environments/environment';
@@ -11,7 +11,7 @@ import { AuthResponseData, SignResponse, User, errorMessages } from '../models';
   providedIn: 'root',
 })
 export class AuthService {
-  user = new Subject<User>();
+  user = new BehaviorSubject<User>(null);
 
   constructor(private http: HttpClient) {
     this.user;
@@ -36,6 +36,10 @@ export class AuthService {
         returnSecureToken: true,
       })
       .pipe(catchError(this.handleError), tap(this.handleAuthentication));
+  }
+
+  logout(): void {
+    this.user.next(null);
   }
 
   private handleError(errorResponse: HttpErrorResponse) {

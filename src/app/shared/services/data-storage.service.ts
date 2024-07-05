@@ -2,12 +2,17 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs';
 import { environment } from '../../../environments/environment.development';
+import { AuthService } from '../../auth/services/auth.service';
 import { Recipe } from '../../recipes/Models/recipe.model';
 import { RecipeService } from '../../recipes/services/recipe.service';
 
 @Injectable({ providedIn: 'root' })
 export class DataStorageService {
-  constructor(private http: HttpClient, private recipeService: RecipeService) {}
+  constructor(
+    private http: HttpClient,
+    private recipeService: RecipeService,
+    private authService: AuthService
+  ) {}
 
   storeRecipes() {
     const recipes = this.recipeService.getRecipes();
@@ -18,7 +23,6 @@ export class DataStorageService {
   }
 
   fetchRecipes() {
-    debugger;
     return this.http.get<Recipe[]>(`${environment.apiUrl}/recipes.json`).pipe(
       tap((res) => {
         return this.recipeService.setRecipes(res);

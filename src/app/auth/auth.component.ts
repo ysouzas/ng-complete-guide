@@ -38,8 +38,6 @@ export class AuthComponent implements OnInit {
 
     this.auth$.subscribe({
       next: (res) => {
-        debugger;
-        console.log(res);
         this.isLoading = false;
         this.router.navigate(['/recipes']);
       },

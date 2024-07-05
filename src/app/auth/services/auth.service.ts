@@ -12,6 +12,7 @@ import { AuthResponseData, SignResponse, User, errorMessages } from '../models';
 })
 export class AuthService {
   user = new BehaviorSubject<User>(null);
+  private tokenExpirationTimer: ReturnType<typeof setTimeout>;
 
   constructor(private http: HttpClient) {
     this.user;
@@ -63,7 +64,20 @@ export class AuthService {
   }
 
   logout(): void {
+    debugger;
     this.user.next(null);
+    localStorage.removeItem('userData');
+
+    if (this.tokenExpirationTimer) {
+      clearTimeout(this.tokenExpirationTimer);
+    }
+
+    this.tokenExpirationTimer = null;
+  }
+  autoLogout(expiriationDuration: number): void {
+    this.tokenExpirationTimer = setTimeout(() => {
+      this.logout();
+    }, expiriationDuration);
   }
 
   private handleError(errorResponse: HttpErrorResponse) {
@@ -83,5 +97,6 @@ export class AuthService {
 
     this.user.next(user);
     localStorage.setItem('userData', JSON.stringify(user));
+    this.autoLogout(parseInt(res.expiresIn) * 1000);
   }
 }

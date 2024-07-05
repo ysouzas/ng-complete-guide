@@ -18,6 +18,30 @@ export class AuthService {
     this.handleAuthentication = this.handleAuthentication.bind(this);
   }
 
+  autoLogin() {
+    debugger;
+    const userData: {
+      email: string;
+      id: string;
+      _token: string;
+      _tokenExpirationDate: string;
+    } = JSON.parse(localStorage.getItem('userData'));
+
+    if (!userData) {
+      return;
+    }
+
+    const loadedUser = new User(
+      userData.email,
+      userData.id,
+      userData._token,
+      new Date(userData._tokenExpirationDate)
+    );
+    if (loadedUser.token) {
+      this.user.next(loadedUser);
+    }
+  }
+
   signUp(email: string, password: string) {
     return this.http
       .post<AuthResponseData>(`${environment.signUpUrl}${environment.apiKey}`, {
@@ -58,5 +82,6 @@ export class AuthService {
     const user = new User(res.email, res.localId, res.idToken, expirationDate);
 
     this.user.next(user);
+    localStorage.setItem('userData', JSON.stringify(user));
   }
 }

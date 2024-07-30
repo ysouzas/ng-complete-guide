@@ -2,8 +2,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, tap, throwError } from 'rxjs';
 
+import { environment } from '@env';
 import { UntilDestroy } from '@ngneat/until-destroy';
-import { environment } from '../../../environments/environment';
 import { AuthResponseData, SignResponse, User, errorMessages } from '../models';
 
 @UntilDestroy({ checkProperties: true })

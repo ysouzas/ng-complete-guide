@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { Observable } from 'rxjs';
 import { User } from '../../../auth/models';
-import { Recipe } from '../../../recipes/Models/recipe.model';
+import { Recipe } from '../../../recipes/models/recipe.model';
 import { DataStorageService } from '../../services/data-storage.service';
 import { AuthService } from './../../../auth/services/auth.service';
 

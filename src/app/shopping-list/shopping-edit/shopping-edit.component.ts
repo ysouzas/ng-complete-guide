@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UntilDestroy } from '@ngneat/until-destroy';
 
-import { Ingredient } from '../../shared/models/ingredient.model';
+import { Ingredient } from '@shared/models/ingredient.model';
 import { ShoppingListService } from '../services/shopping-list.service';
 
 @UntilDestroy({ checkProperties: true })

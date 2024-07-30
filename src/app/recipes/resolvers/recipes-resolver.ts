@@ -4,8 +4,8 @@ import {
   ResolveFn,
   RouterStateSnapshot,
 } from '@angular/router';
-import { DataStorageService } from '../../shared/services/data-storage.service';
-import { Recipe } from '../Models/recipe.model';
+import { Recipe } from '@recipes/models/recipe.model';
+import { DataStorageService } from '@shared/services/data-storage.service';
 
 export const RecipeResolver: ResolveFn<Recipe[]> = (
   route: ActivatedRouteSnapshot,

@@ -2,8 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { UntilDestroy } from '@ngneat/until-destroy';
 
-import { Recipe } from '../Models/recipe.model';
-import { RecipeService } from '../services/recipe.service';
+import { Recipe } from '@recipes/models/recipe.model';
+import { RecipeService } from '@recipes/services/recipe.service';
 
 @UntilDestroy({ checkProperties: true })
 @Component({

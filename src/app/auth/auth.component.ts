@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { Observable } from 'rxjs';
 
+import { AlertType } from '@shared/components/shared-alert/models/alert-type.model';
 import { AuthResponseData } from './models';
 import { AuthService } from './services/auth.service';
 
@@ -19,6 +20,7 @@ export class AuthComponent implements OnInit {
   isLoading = false;
   error: string = null;
   auth$: Observable<AuthResponseData> = null;
+  alertType = AlertType.DANGER;
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -42,10 +44,17 @@ export class AuthComponent implements OnInit {
         this.router.navigate(['/recipes']);
       },
       error: (error: string) => {
+        debugger;
+
         this.error = error;
         this.isLoading = false;
       },
     });
+  }
+
+  onHandleError() {
+    debugger;
+    this.error = null;
   }
 
   private createAuthObservable(email: string, password: string) {
